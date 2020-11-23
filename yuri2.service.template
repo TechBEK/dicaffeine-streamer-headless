@@ -1,0 +1,18 @@
+[Unit]
+Description=_CHANGEME_NAME_
+Requires=network.target
+Requires=sound.target
+Requires=multi-user.target
+After=multi-user.target
+
+[Service]
+User=pi
+Group=users
+Restart=always
+RestartSec=5
+ExecStart=yuri2 /home/pi/yuri/_CHANGME_FILE_
+#ExecStop=/bin/kill -9 ${MAINPID}
+Restart=always
+
+[Install]
+WantedBy=default.target

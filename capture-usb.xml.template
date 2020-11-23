@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app name="stremaer">
+    <description>_CHANGEME_NAME_</description>
+    <node class="v4l2source" name="video_in">
+        <parameter name="path">_CHANGEME_VIDEO_</parameter>
+        <parameter name="format">MJPG</parameter>
+        <parameter name="resolution">1280x720</parameter>
+        <parameter name="fps">60</parameter>
+    </node>
+    <node class="convert" name="convert">
+        <parameter name="format">bgra32</parameter>
+    </node>
+    <node class="ndi_output" name="ndi_output">
+        <parameter name="stream">_CHANGEME_NAME_</parameter>
+        <parameter name="fps">60</parameter>
+        <parameter name="licence">/home/pi/yuri/dicaffeine.lic</parameter>
+        <parameter name="audio">true</parameter>
+    </node>
+    <node class="alsa_input" name="audio_in">
+        <parameter name="device">_CHANGEME_AUDIO_</parameter>
+        <parameter name="channels">1</parameter>
+        <parameter name="format">s16</parameter>
+        <parameter name="frames">256</parameter>
+        <parameter name="sample_rate">44100</parameter>
+    </node>
+    <link class="count_limited" name="link_audio_input" source="audio_in:0" target="ndi_output:1" count="5"/>
+    <link class="single" name="link_video_input" source="video_in:0" target="convert:0"/>
+    <link class="single" name="link_convert" source="convert:0" target="ndi_output:0"/>
+</app>
